@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RealWorldLaunch | 12-Week Intensive for Real Life</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gray: #6b6b6b;
+      --light-gray: #f5f5f5;
+      --border: #e0e0e0;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      color: var(--gold);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .nav-tagline {
+      color: #888;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      font-family: 'Arial', sans-serif;
+      text-transform: none;
+    }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--black);
+      padding: 10px 24px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at center top, rgba(201,168,76,0.12) 0%, transparent 65%);
+    }
+    .hero-inner { position: relative; max-width: 800px; }
+    .hero-eyebrow {
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      font-family: 'Arial', sans-serif;
+    }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 1.1;
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .hero-sub {
+      color: #aaa;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 580px;
+      margin: 0 auto 48px;
+      font-family: 'Arial', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .hero-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      max-width: 540px;
+      margin: 0 auto 24px;
+    }
+    .hero-form input {
+      padding: 16px 20px;
+      font-size: 1rem;
+      border: 1px solid #333;
+      background: #111;
+      color: var(--white);
+      outline: none;
+      font-family: 'Arial', sans-serif;
+      width: 100%;
+    }
+    .hero-form input::placeholder { color: #555; }
+    .hero-form input:focus { border-color: var(--gold); }
+    .hero-form input:nth-child(3),
+    .hero-form input:nth-child(4) {
+      /* email and phone span naturally in 2-col */
+    }
+    .hero-form button {
+      grid-column: 1 / -1;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 16px 28px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Arial', sans-serif;
+      transition: background 0.2s;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .hero-form button:hover { background: var(--gold-light); }
+    .hero-note {
+      color: #555;
+      font-size: 0.8rem;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 5%; }
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-family: 'Arial', sans-serif;
+    }
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      color: var(--gray);
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin-bottom: 60px;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── PROBLEM ── */
+    .problem { background: var(--light-gray); }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .problem-card {
+      background: var(--white);
+      padding: 40px 36px;
+    }
+    .problem-stat {
+      font-size: 3rem;
+      color: var(--gold);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .problem-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .problem-card p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── WHAT YOU LEARN ── */
+    .curriculum h2 { max-width: 600px; }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 56px;
+    }
+    .pillar {
+      border-top: 2px solid var(--gold);
+      padding-top: 28px;
+    }
+    .pillar-number {
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      font-family: 'Arial', sans-serif;
+      margin-bottom: 12px;
+    }
+    .pillar h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+    .pillar p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.65;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--black); color: var(--white); }
+    .how .section-sub { color: #888; }
+    .how h2 { color: var(--white); }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      margin-top: 56px;
+      border-top: 1px solid #222;
+    }
+    .timeline-item {
+      padding: 40px 28px 40px 0;
+      border-right: 1px solid #222;
+    }
+    .timeline-item:last-child { border-right: none; }
+    .timeline-phase {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'Arial', sans-serif;
+      margin-bottom: 10px;
+    }
+    .timeline-weeks {
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+    .timeline-item h3 {
+      color: var(--white);
+      font-size: 1rem;
+      margin-bottom: 10px;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+    }
+    .timeline-item p {
+      color: #666;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+    }
+    .format-row {
+      display: flex;
+      gap: 40px;
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid #222;
+      flex-wrap: wrap;
+    }
+    .format-item { flex: 1; min-width: 160px; }
+    .format-label {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'Arial', sans-serif;
+      margin-bottom: 8px;
+    }
+    .format-value {
+      color: var(--white);
+      font-size: 1.5rem;
+    }
+
+    /* ── WHO IT'S FOR ── */
+    .who-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 680px;
+      margin-top: 48px;
+    }
+    .who-item {
+      display: flex;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .who-item:first-child { border-top: 1px solid var(--border); }
+    .who-check {
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .who-item p {
+      font-family: 'Arial', sans-serif;
+      font-size: 1rem;
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* ── INVESTMENT ── */
+    .investment { background: var(--black); color: var(--white); }
+    .investment h2 { color: var(--white); }
+    .investment .section-sub { color: #888; }
+    .pricing-card {
+      background: #111;
+      border: 1px solid #222;
+      border-top: 3px solid var(--gold);
+      padding: 56px 48px;
+      max-width: 560px;
+      margin-top: 48px;
+    }
+    .price-amount {
+      font-size: 4rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .price-detail {
+      color: #666;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      margin-bottom: 40px;
+    }
+    .price-includes {
+      list-style: none;
+      margin-bottom: 48px;
+    }
+    .price-includes li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #ccc;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.95rem;
+      padding: 10px 0;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .price-includes li::before {
+      content: '→';
+      color: var(--gold);
+    }
+    .pricing-cta {
+      display: block;
+      background: var(--gold);
+      color: var(--black);
+      text-align: center;
+      padding: 18px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'Arial', sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    .pricing-cta:hover { background: var(--gold-light); }
+
+    /* ── FAQ ── */
+    .faq-list { margin-top: 56px; max-width: 680px; }
+    .faq-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-item h3 {
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+    }
+    .faq-item p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      background: var(--gold);
+      padding: 100px 5%;
+      text-align: center;
+    }
+    .final-cta h2 {
+      color: var(--black);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 20px;
+    }
+    .final-cta p {
+      color: rgba(0,0,0,0.65);
+      font-family: 'Arial', sans-serif;
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+    .final-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .final-form input {
+      padding: 16px 20px;
+      font-size: 1rem;
+      border: 2px solid rgba(0,0,0,0.15);
+      background: rgba(255,255,255,0.9);
+      color: var(--black);
+      outline: none;
+      font-family: 'Arial', sans-serif;
+      width: 100%;
+    }
+    .final-form input:focus { border-color: var(--black); }
+    .final-form button {
+      grid-column: 1 / -1;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 16px 28px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Arial', sans-serif;
+      transition: background 0.2s;
+      width: 100%;
+    }
+    .final-form button:hover { background: #222; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      color: #444;
+      text-align: center;
+      padding: 32px 5%;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+    }
+    footer a { color: #555; text-decoration: none; }
+
+    /* ── SUCCESS STATE ── */
+    .success-msg {
+      display: none;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--gold);
+      padding: 16px 24px;
+      color: var(--gold);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero-form, .final-form {
+        flex-direction: column;
+      }
+      .hero-form button, .final-form button {
+        width: 100%;
+      }
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .timeline-item { border-right: none; border-bottom: 1px solid #222; padding: 28px 0; }
+      .pricing-card { padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      RealWorldLaunch
+      <span class="nav-tagline">What college should be teaching you</span>
+    </div>
+    <a href="#waitlist" class="nav-cta">Learn More</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Starts Sep 1, 2026 — Las Vegas, NV</p>
+      <h1>The Education<br>You Didn't Get<br>in <em>School.</em></h1>
+      <p class="hero-sub">
+        A 12-week, in-person intensive in Las Vegas covering money, sales, communication, entrepreneurship, and technology — everything that actually matters after graduation.
+      </p>
+      <div class="hero-form" id="hero-form-wrap">
+        <input type="text" id="hero-firstname" placeholder="First name" />
+        <input type="text" id="hero-lastname" placeholder="Last name" />
+        <input type="email" id="hero-email" placeholder="Email address" />
+        <input type="tel" id="hero-phone" placeholder="Phone number" />
+        <button onclick="handleSignup('hero')">Learn More</button>
+      </div>
+      <div class="success-msg" id="hero-success">
+        ✓ You're on the list. We'll be in touch shortly.
+      </div>
+      <p class="hero-note">No commitment. Limited to 25 seats. Starting September 1.</p>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="section-inner">
+      <p class="section-label">The Reality</p>
+      <h2>College was built<br>for another era.</h2>
+      <p class="section-sub">The average graduate walks away $37,000 in debt — and still doesn't know how to file taxes, negotiate a salary, or build something from nothing.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-stat">$1.8T</div>
+          <h3>Student Debt</h3>
+          <p>The total outstanding student loan debt in the US — and rising every year while employers increasingly drop degree requirements.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-stat">4 yrs</div>
+          <h3>Time Cost</h3>
+          <p>Four years of your life — and most graduates say less than 20% of what they learned was applicable to their actual career.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-stat">0</div>
+          <h3>Real Skills Taught</h3>
+          <p>No personal finance. No sales. No marketing. No entrepreneurship. None of the skills that compound for a lifetime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section class="curriculum">
+    <div class="section-inner">
+      <p class="section-label">The Curriculum</p>
+      <h2>Six pillars. Twelve weeks.<br>A foundation for life.</h2>
+      <p class="section-sub">Every module is built around real-world application — not textbooks, not theory. You'll leave with skills you can use the same week.</p>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-number">01</div>
+          <h3>Time Management & Money</h3>
+          <p>How to own your time, build high-value habits, and master your finances — budgeting, investing, taxes, and credit. The foundation everything else is built on.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">02</div>
+          <h3>Sales & Negotiation</h3>
+          <p>How to sell ideas, products, and yourself. Salary negotiation, objection handling, closing — skills every career requires.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">03</div>
+          <h3>Marketing & Attention</h3>
+          <p>How brands are built, how content spreads, how to grow an audience — digital and otherwise. The language of modern business.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">04</div>
+          <h3>Communication</h3>
+          <p>Writing, public speaking, persuasion, networking. How to command a room, a meeting, and an inbox.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">05</div>
+          <h3>Entrepreneurship</h3>
+          <p>How to validate an idea, build something from zero, understand a P&L, and think like an owner — employed or not.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">06</div>
+          <h3>Technology</h3>
+          <p>Practical tech literacy: AI tools, no-code platforms, data fundamentals, and how to stay ahead instead of behind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="section-inner">
+      <p class="section-label">The Format</p>
+      <h2>Built like a career.<br>Not like a classroom.</h2>
+      <p class="section-sub">Three phases over 12 weeks. In-person sessions two to three times per week, with real work happening outside the room.</p>
+      <div class="timeline">
+        <div class="timeline-item" style="padding-left: 0; padding-right: 28px;">
+          <div class="timeline-phase">Phase 01</div>
+          <div class="timeline-weeks">Weeks 1–4</div>
+          <h3>Foundation</h3>
+          <p>Money, mindset, communication basics. Building the operating system every adult needs.</p>
+        </div>
+        <div class="timeline-item" style="padding-left: 28px; padding-right: 28px;">
+          <div class="timeline-phase">Phase 02</div>
+          <div class="timeline-weeks">Weeks 5–9</div>
+          <h3>Skills in Practice</h3>
+          <p>Sales, marketing, entrepreneurship, and tech — applied through real exercises and live projects.</p>
+        </div>
+        <div class="timeline-item" style="padding-left: 28px; padding-right: 0;">
+          <div class="timeline-phase">Phase 03</div>
+          <div class="timeline-weeks">Weeks 10–12</div>
+          <h3>Capstone & Launch</h3>
+          <p>Build and present a real project. Walk out with a portfolio piece and a clear plan for what's next.</p>
+        </div>
+      </div>
+      <div class="format-row">
+        <div class="format-item">
+          <div class="format-label">Duration</div>
+          <div class="format-value">12 Weeks</div>
+        </div>
+        <div class="format-item">
+          <div class="format-label">In-Person Sessions</div>
+          <div class="format-value">2–3x / Week</div>
+        </div>
+        <div class="format-item">
+          <div class="format-label">Class Size</div>
+          <div class="format-value">25 Students</div>
+        </div>
+        <div class="format-item">
+          <div class="format-label">Format</div>
+          <div class="format-value">In-Person</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="who">
+    <div class="section-inner">
+      <p class="section-label">Who This Is For</p>
+      <h2>Not for everyone.<br>Exactly right for some.</h2>
+      <p class="section-sub">This program is deliberately designed for a specific type of person — one who'd rather earn their way forward than go into debt for a credential.</p>
+      <div class="who-list">
+        <div class="who-item">
+          <span class="who-check">→</span>
+          <p>Recent high school graduates who are questioning whether a four-year degree is the right next step for them.</p>
+        </div>
+        <div class="who-item">
+          <span class="who-check">→</span>
+          <p>Adults who want to transition careers, start a business, or build the skills their job never taught them.</p>
+        </div>
+        <div class="who-item">
+          <span class="who-check">→</span>
+          <p>People who learn by doing — not by sitting in lectures and memorizing things they'll never use.</p>
+        </div>
+        <div class="who-item">
+          <span class="who-check">→</span>
+          <p>Anyone who's serious about building a real-world skill set in the shortest, most focused time possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTMENT -->
+  <section class="investment" id="waitlist">
+    <div class="section-inner">
+      <p class="section-label">The Investment</p>
+      <h2>Less than one semester<br>of college tuition.</h2>
+      <p class="section-sub">And infinitely more applicable to your actual life. Everything you need to build real momentum — in just 12 weeks.</p>
+      <div class="pricing-card">
+        <div class="price-amount">$6,000</div>
+        <div class="price-detail">Full tuition · One-time payment · Las Vegas · Starts September 1</div>
+        <ul class="price-includes">
+          <li>12 weeks of in-person instruction</li>
+          <li>All six curriculum modules</li>
+          <li>Guest speakers and real practitioners</li>
+          <li>Capstone project development</li>
+          <li>Small class — 25 students maximum</li>
+          <li>Post-program alumni network access</li>
+        </ul>
+        <button class="pricing-cta" onclick="document.getElementById('final-email').focus(); document.querySelector('.final-cta').scrollIntoView({behavior:'smooth'})">
+          Learn More
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="section-inner">
+      <p class="section-label">Questions</p>
+      <h2>Common questions,<br>honest answers.</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>Where is the program held?</h3>
+          <p>The program is in Las Vegas, NV, starting September 1. In-person sessions meet two to three times per week, with additional work outside the classroom.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Is this accredited?</h3>
+          <p>No — and that's intentional. Accreditation is slow, expensive, and often compromises curriculum quality. We're not building another institution. We're building an education that actually works.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Who teaches the program?</h3>
+          <p>The core curriculum is taught by practitioners — people with real experience in each subject area, not academics. Every session is led by instructors who have done it, not just studied it.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Are payment plans available?</h3>
+          <p>Tuition is $6,000 paid in full at enrollment. This keeps things simple and ensures every student is fully committed to the cohort.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What do I walk away with?</h3>
+          <p>A real capstone project, a certificate of completion, access to an alumni network, and — most importantly — a practical skill set you can apply immediately.</p>
+        </div>
+        <div class="faq-item">
+          <h3>When and where does the program start?</h3>
+          <p>The next session begins September 1 in Las Vegas, NV. Exact venue details will be shared with enrolled students ahead of the start date.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="section-inner">
+      <h2>Don't wait four years<br>to figure this out.</h2>
+      <p>Submit your info and we'll reach out with everything you need to know about the September session in Las Vegas.</p>
+      <div class="final-form" id="final-form-wrap">
+        <input type="text" id="final-firstname" placeholder="First name" />
+        <input type="text" id="final-lastname" placeholder="Last name" />
+        <input type="email" id="final-email" placeholder="Email address" />
+        <input type="tel" id="final-phone" placeholder="Phone number" />
+        <button onclick="handleSignup('final')">Learn More</button>
+      </div>
+      <div class="success-msg" id="final-success" style="background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.3); color: var(--black);">
+        ✓ Got it. We'll be in touch shortly.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 RealWorldLaunch · <a href="mailto:hello@thealternative.co">hello@thealternative.co</a></p>
+    <p style="margin-top: 8px;">Questions? Reply to any email we send you.</p>
+  </footer>
+
+  <script>
+    function handleSignup(source) {
+      const prefix = source === 'hero' ? 'hero' : 'final';
+      const firstNameInput = document.getElementById(prefix + '-firstname');
+      const lastNameInput  = document.getElementById(prefix + '-lastname');
+      const emailInput     = document.getElementById(prefix + '-email');
+      const phoneInput     = document.getElementById(prefix + '-phone');
+      const formWrap       = document.getElementById(prefix + '-form-wrap');
+      const successMsg     = document.getElementById(prefix + '-success');
+
+      const firstName = firstNameInput.value.trim();
+      const lastName  = lastNameInput.value.trim();
+      const email     = emailInput.value.trim();
+      const phone     = phoneInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      let hasError = false;
+
+      if (!firstName) { firstNameInput.style.borderColor = '#cc0000'; hasError = true; }
+      else { firstNameInput.style.borderColor = ''; }
+
+      if (!lastName) { lastNameInput.style.borderColor = '#cc0000'; hasError = true; }
+      else { lastNameInput.style.borderColor = ''; }
+
+      if (!emailRegex.test(email)) { emailInput.style.borderColor = '#cc0000'; hasError = true; }
+      else { emailInput.style.borderColor = ''; }
+
+      if (!phone) { phoneInput.style.borderColor = '#cc0000'; hasError = true; }
+      else { phoneInput.style.borderColor = ''; }
+
+      if (hasError) return;
+
+      // In production, replace with your actual form handler (Mailchimp, ConvertKit, etc.)
+      console.log('Interest list signup:', { firstName, lastName, email, phone, source });
+
+      formWrap.style.display = 'none';
+      successMsg.style.display = 'block';
+
+      // Store locally for demo
+      const signups = JSON.parse(sessionStorage.getItem('signups') || '[]');
+      signups.push({ firstName, lastName, email, phone, source, timestamp: new Date().toISOString() });
+      sessionStorage.setItem('signups', JSON.stringify(signups));
+    }
+
+    // Allow Enter key on phone fields to submit
+    ['hero-phone', 'final-phone'].forEach(id => {
+      document.getElementById(id).addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') handleSignup(id.startsWith('hero') ? 'hero' : 'final');
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
