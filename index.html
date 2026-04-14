@@ -538,13 +538,14 @@
       <p class="hero-sub">
         <br>A 12-week, in-person intensive in Las Vegas covering money, sales, communication, entrepreneurship, and technology — everything that actually matters after High School graduation.
       </p>
-      <div class="hero-form" id="hero-form-wrap">
-        <input type="text" id="hero-firstname" placeholder="First name" />
-        <input type="text" id="hero-lastname" placeholder="Last name" />
-        <input type="email" id="hero-email" placeholder="Email address" />
-        <input type="tel" id="hero-phone" placeholder="Phone number" />
-        <button onclick="handleSignup('hero')">Learn More</button>
-      </div>
+      <form class="hero-form" id="hero-form-wrap">
+        <input type="text" id="hero-firstname" name="first_name" placeholder="First name" />
+        <input type="text" id="hero-lastname" name="last_name" placeholder="Last name" />
+        <input type="email" id="hero-email" name="email" placeholder="Email address" />
+        <input type="tel" id="hero-phone" name="phone" placeholder="Phone number" />
+        <input type="hidden" name="_source" value="hero" />
+        <button type="button" onclick="handleSignup('hero')">Learn More</button>
+      </form>
       <div class="success-msg" id="hero-success">
         ✓ You're on the list. We'll be in touch shortly.
       </div>
@@ -756,13 +757,14 @@
     <div class="section-inner">
       <h2>Don't wait four years<br>to figure this out.</h2>
       <p>Submit your info and we'll reach out with everything you need to know about the next session in Las Vegas.</p>
-      <div class="final-form" id="final-form-wrap">
-        <input type="text" id="final-firstname" placeholder="First name" />
-        <input type="text" id="final-lastname" placeholder="Last name" />
-        <input type="email" id="final-email" placeholder="Email address" />
-        <input type="tel" id="final-phone" placeholder="Phone number" />
-        <button onclick="handleSignup('final')">Learn More</button>
-      </div>
+      <form class="final-form" id="final-form-wrap">
+        <input type="text" id="final-firstname" name="first_name" placeholder="First name" />
+        <input type="text" id="final-lastname" name="last_name" placeholder="Last name" />
+        <input type="email" id="final-email" name="email" placeholder="Email address" />
+        <input type="tel" id="final-phone" name="phone" placeholder="Phone number" />
+        <input type="hidden" name="_source" value="final-cta" />
+        <button type="button" onclick="handleSignup('final')">Learn More</button>
+      </form>
       <div class="success-msg" id="final-success" style="background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.3); color: var(--black);">
         ✓ Got it. We'll be in touch shortly.
       </div>
@@ -776,7 +778,7 @@
   </footer>
 
   <script>
-    function handleSignup(source) {
+    async function handleSignup(source) {
       const prefix = source === 'hero' ? 'hero' : 'final';
       const firstNameInput = document.getElementById(prefix + '-firstname');
       const lastNameInput  = document.getElementById(prefix + '-lastname');
@@ -807,16 +809,24 @@
 
       if (hasError) return;
 
-      // In production, replace with your actual form handler (Mailchimp, ConvertKit, etc.)
-      console.log('Interest list signup:', { firstName, lastName, email, phone, source });
-
-      formWrap.style.display = 'none';
-      successMsg.style.display = 'block';
-
-      // Store locally for demo
-      const signups = JSON.parse(sessionStorage.getItem('signups') || '[]');
-      signups.push({ firstName, lastName, email, phone, source, timestamp: new Date().toISOString() });
-      sessionStorage.setItem('signups', JSON.stringify(signups));
+      // Submit to Formspree
+      try {
+        const response = await fetch('https://formspree.io/f/mwvapqlg', {
+          method: 'POST',
+          body: new FormData(formWrap),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          formWrap.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          const data = await response.json();
+          if (data.errors) { alert('Submission error: ' + data.errors.map(e => e.message).join(', ')); }
+          else { alert('There was a problem submitting the form. Please try again.'); }
+        }
+      } catch (error) {
+        alert('There was a problem submitting the form. Please check your connection and try again.');
+      }
     }
 
     // Allow Enter key on phone fields to submit
